@@ -87,11 +87,11 @@ class Helios::Backend::PushNotification < Sinatra::Base
     end
   end
 
-  get '/user' do
-    status 503 and return unless client
+  # get '/user' do
+  #   status 503 and return unless client
 
-    param :payload, String, empty: false
-    param :user, String, empty: false
+  #   param :payload, String, empty: false
+  #   param :user, String, empty: false
 
     # tokens = Rack::PushNotification::Device.find(:alias=>params[:user]).all.collect(&:token)
 
