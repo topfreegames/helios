@@ -111,7 +111,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     #   {error: error}.to_json
     # end
-  end
+  # end
 
   private
 
