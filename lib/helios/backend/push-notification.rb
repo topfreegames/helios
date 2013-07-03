@@ -93,24 +93,24 @@ class Helios::Backend::PushNotification < Sinatra::Base
     param :payload, String, empty: false
     param :user, String, empty: false
 
-    tokens = Rack::PushNotification::Device.find(:alias=>params[:user]).all.collect(&:token)
+    # tokens = Rack::PushNotification::Device.find(:alias=>params[:user]).all.collect(&:token)
 
-    options = JSON.parse(params[:payload])
-    options[:alert] = options["aps"]["alert"]
-    options[:badge] = options["aps"]["badge"]
-    options[:sound] = options["aps"]["sound"]
-    options.delete("aps")
+    # options = JSON.parse(params[:payload])
+    # options[:alert] = options["aps"]["alert"]
+    # options[:badge] = options["aps"]["badge"]
+    # options[:sound] = options["aps"]["sound"]
+    # options.delete("aps")
 
-    begin
-      notifications = tokens.collect{|token| Houston::Notification.new(options.update({device: token}))}
-      client.push(*notifications)
+    # begin
+    #   notifications = tokens.collect{|token| Houston::Notification.new(options.update({device: token}))}
+    #   client.push(*notifications)
 
-      status 204
-    rescue => error
-      status 500
+    #   status 204
+    # rescue => error
+    #   status 500
 
-      {error: error}.to_json
-    end
+    #   {error: error}.to_json
+    # end
   end
 
   private
