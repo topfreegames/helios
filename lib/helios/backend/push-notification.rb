@@ -87,7 +87,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     end
   end
 
-  get '/user' do
+  post '/user' do
     status 503 and return unless client
 
     param :payload, String, empty: false
