@@ -21,13 +21,19 @@ class Helios::Backend::PushNotification < Sinatra::Base
   end
 
   put '/device/:token/?' do
-    param :languages, Array
-    param :tags, Array
+    param :device, String, empty: false
+
+    record = Rack::PushNotification::Device.find(token: params[:token]) || Rack::PushNotification::Device.new
+    record.set(params)
+
+    record.options = JSON.parse(params[:device])
+    record.timezone = options["timezone"]
+    record.user = options["alias"]
+    record.language = options["language"]
+    record.tags = options["tags"]
+    record.locale = options["locale"]
 
     p params
-
-    record = Device.find(token: params[:token]) || Device.new
-    record.set(params)
 
     code = record.new? ? 201 : 200
 
