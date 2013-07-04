@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency "commander", "~> 4.1"
   s.add_dependency "foreman", "~> 0.63"
   s.add_dependency "rack-contrib", "~> 1.1"
+  s.add_dependency "rack-push-notification", "~> 0.4"
   s.add_dependency "rack-in-app-purchase", "~> 0.1"
   s.add_dependency "rack-passbook", "~> 0.1"
   s.add_dependency "rack-newsstand", "~> 0.1"
