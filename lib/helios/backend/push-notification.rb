@@ -31,7 +31,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     record.timezone = options["device"]["timezone"]
     record.alias = options["device"]["alias"]
     record.language = options["device"]["language"]
-    record.tags = options["device"]["tags"]
+    # record.tags = options["device"]["tags"]
     record.locale = options["device"]["locale"]
 
 
