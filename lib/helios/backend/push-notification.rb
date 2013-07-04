@@ -29,7 +29,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     options = JSON.parse(request.body.read)
     
     record.timezone = options["device"]["timezone"]
-    record.user = options["device"]["alias"]
+    record.alias = options["device"]["alias"]
     record.language = options["device"]["language"]
     record.tags = options["device"]["tags"]
     record.locale = options["device"]["locale"]
