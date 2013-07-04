@@ -27,7 +27,8 @@ class Helios::Backend::PushNotification < Sinatra::Base
     record.set(params)
     p params
     json_body = request.body.read
-    record.options = JSON.parse(json_boby[:device])
+    p json_body
+    record.options = JSON.parse(json_body[:device])
     record.timezone = options["timezone"]
     record.user = options["alias"]
     record.language = options["language"]
