@@ -25,7 +25,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     record = Rack::PushNotification::Device.find(token: params[:token]) || Rack::PushNotification::Device.new
     record.set(params)
-
+    p params
     record.options = JSON.parse(params[:device])
     record.timezone = options["timezone"]
     record.user = options["alias"]
