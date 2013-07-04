@@ -120,7 +120,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     param :payload, String, empty: false
     param :user, String, empty: false
-    p params[:user].from_json 
+    p params[:user]
     tokens = Rack::PushNotification::Device.where(:alias=>params[:user]).all.collect(&:token)
     p tokens
     options = JSON.parse(params[:payload])
