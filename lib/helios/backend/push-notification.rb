@@ -1,3 +1,4 @@
+require 'rack/push-notification'
 
 require 'sinatra/base'
 require 'sinatra/param'
@@ -17,6 +18,26 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
   before do
     content_type :json
+  end
+
+  put '/device/:token/?' do
+    param :languages, Array
+    param :tags, Array
+
+    p params
+
+    record = Device.find(token: params[:token]) || Device.new
+    record.set(params)
+
+    code = record.new? ? 201 : 200
+
+    if record.save
+      status code
+      {device: record}.to_json
+    else
+      status 400
+      {errors: record.errors}.to_json
+    end
   end
 
   get '/devices/?' do
