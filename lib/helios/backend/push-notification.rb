@@ -1,4 +1,3 @@
-require 'push-notification'
 
 require 'sinatra/base'
 require 'sinatra/param'
