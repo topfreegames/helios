@@ -26,14 +26,14 @@ class Helios::Backend::PushNotification < Sinatra::Base
     record = Rack::PushNotification::Device.find(token: params[:token]) || Rack::PushNotification::Device.new
     record.set(params)
     p params
-    json_body = request.body.read
-    p json_body
-    options = JSON.parse(json_body["device"])
-    record.timezone = options["timezone"]
-    record.user = options["alias"]
-    record.language = options["language"]
-    record.tags = options["tags"]
-    record.locale = options["locale"]
+    options = JSON.parse(request.body.read)
+    
+    record.timezone = options["device"]["timezone"]
+    record.user = options["device"]["alias"]
+    record.language = options["device"]["language"]
+    record.tags = options["device"]["tags"]
+    record.locale = options["device"]["locale"]
+
 
     p params
 
