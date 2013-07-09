@@ -145,10 +145,11 @@ class Helios::Backend::PushNotification < Sinatra::Base
     # devices = client.devices unless client.nil?
     devices = ["39835C5551C054F9DC15239EAE17DF90984A40611484F6E438A3F604CED7F8F9"]
     unless devices.empty?
+      http = Net::HTTP.new("/")
       devices.each do |token|
         request = Net::HTTP::Delete.new("/devices/#{token}")
-        # response = http.request(request)
-        # p response
+        response = http.request(request)
+        p response
       end
     end
   end
