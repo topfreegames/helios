@@ -5,6 +5,8 @@ require 'sinatra/param'
 
 require 'houston'
 
+require 'net/http'
+
 class Helios::Backend::PushNotification < Sinatra::Base
   helpers Sinatra::Param
   attr_reader :apn_certificate, :apn_environment
@@ -120,9 +122,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     param :payload, String, empty: false
     param :user, String, empty: false
-    p params[:user]
     tokens = Rack::PushNotification::Device.where(:alias=>params[:user]).all.collect(&:token)
-    p tokens
     options = JSON.parse(params[:payload])
     options[:alert] = options["aps"]["alert"]
     options[:badge] = options["aps"]["badge"]
@@ -138,6 +138,17 @@ class Helios::Backend::PushNotification < Sinatra::Base
       status 500
 
       {error: error}.to_json
+    end
+  end
+
+  post '/remove_tokens' do
+    # devices = client.devices unless client.nil?
+    devices = ["39835C5551C054F9DC15239EAE17DF90984A40611484F6E438A3F604CED7F8F9"]
+    unless devices.empty?
+      devices.each do |d|
+        request = Net::HTTP::Delete.new("/devices/#{d.token}")
+        response = http.request(request)
+      end
     end
   end
 
