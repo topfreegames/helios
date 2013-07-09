@@ -147,8 +147,8 @@ class Helios::Backend::PushNotification < Sinatra::Base
     unless devices.empty?
       devices.each do |token|
         request = Net::HTTP::Delete.new("/devices/#{token}")
-        response = http.request(request)
-        p response
+        # response = http.request(request)
+        # p response
       end
     end
   end
