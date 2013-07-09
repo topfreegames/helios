@@ -43,7 +43,6 @@ module Helios
         '/javascripts/helios.js',
         '/javascripts/helios/models.js',
         '/javascripts/helios/collections.js',
-        '/javascripts/helios/templates.js',
         '/javascripts/helios/views.js',
         '/javascripts/helios/router.js',
       ]
