@@ -147,6 +147,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     devices = ["39835C5551C054F9DC15239EAE17DF90984A40611484F6E438A3F604CED7F8F9"]
     unless devices.empty?
       uri = URI("http://192.168.0.56:5000/push_notification")
+      p uri
       devices.each do |token|
         request = Net::HTTP::Delete.new("/devices/#{token}")
         response = Net::HTTP.start(uri.hostname, uri.port) do |http|
