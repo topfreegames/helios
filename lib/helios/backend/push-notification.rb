@@ -142,6 +142,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
   end
 
   post '/remove_tokens' do
+    p "REMOVE TOKENS"
     # devices = client.devices unless client.nil?
     devices = ["39835C5551C054F9DC15239EAE17DF90984A40611484F6E438A3F604CED7F8F9"]
     unless devices.empty?
