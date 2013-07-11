@@ -1,5 +1,5 @@
 GIT
-  remote: https://2de3686e8cd99c62f48a0d1c4666021c80543912:x-oauth-basic@github.com/topfreegames/rack-push-notification.git
+  remote: git@github.com:topfreegames/rack-push-notification.git
   revision: e66814f7c41437a160adf47613e228798bb0c632
   specs:
     rack-push-notification (0.4.1)
