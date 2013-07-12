@@ -54,6 +54,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
       else
         status 403
       end
+    end
     
     param :q, String
 
