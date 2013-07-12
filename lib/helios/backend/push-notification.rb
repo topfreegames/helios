@@ -151,8 +151,13 @@ class Helios::Backend::PushNotification < Sinatra::Base
     devices = ["39835C5551C054F9DC15239EAE17DF90984A40611484F6E438A3F604CED7F8F9"]
     unless devices.empty?
       devices.each do |token|
-        # response = delete "/devices/#{token}"
-        post '/teste'
+        record = Device.find(token: token) or halt 404
+        if record.destroy
+          status 200
+        else
+          status 400
+          {errors: record.errors}.to_json
+        end
       end
     end
   end
