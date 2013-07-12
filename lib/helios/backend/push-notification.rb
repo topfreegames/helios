@@ -49,8 +49,11 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
   get '/devices/?' do
     use Rack::Auth::Basic, "Restricted Area" do |username, password|
-      username == (ENV['HELIOS_ADMIN_USERNAME'] || "") and password == (ENV['HELIOS_ADMIN_PASSWORD'] || "")
-    end if ENV['HELIOS_ADMIN_USERNAME'] or ENV['HELIOS_ADMIN_PASSWORD']
+      if ENV['HELIOS_ADMIN_USERNAME'] and ENV['HELIOS_ADMIN_PASSWORD']
+        username == (ENV['HELIOS_ADMIN_USERNAME']) and password == (ENV['HELIOS_ADMIN_PASSWORD'])
+      else
+        status 403
+      end
     
     param :q, String
 
