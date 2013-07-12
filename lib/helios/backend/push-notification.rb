@@ -36,9 +36,6 @@ class Helios::Backend::PushNotification < Sinatra::Base
     # record.tags = options["device"]["tags"]
     record.locale = options["device"]["locale"]
 
-
-    p params
-
     code = record.new? ? 201 : 200
 
     if record.save
@@ -74,6 +71,18 @@ class Helios::Backend::PushNotification < Sinatra::Base
       }.to_json
     end
   end
+
+  get '/tokens/:user' do
+    param :user, String, empty: false
+    tokens = Rack::PushNotification::Device.where(:alias=>params[:user]).all.collect(&:token)
+    if tokens do
+      {tokens: tokens}.to_json
+    else
+      status 404
+    end
+
+  end
+
 
   get '/devices/:token/?' do
     record = ::Rack::PushNotification::Device.find(token: params[:token])
@@ -141,10 +150,6 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
       {error: error}.to_json
     end
-  end
-
-  post '/teste' do
-    status 204
   end
 
   post '/remove_tokens' do
