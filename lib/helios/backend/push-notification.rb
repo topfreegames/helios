@@ -75,7 +75,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
   get '/tokens/:user' do
     param :user, String, empty: false
     tokens = Rack::PushNotification::Device.where(:alias=>params[:user]).all.collect(&:token)
-    if tokens do
+    if tokens
       {tokens: tokens}.to_json
     else
       status 404
