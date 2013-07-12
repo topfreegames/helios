@@ -48,6 +48,10 @@ class Helios::Backend::PushNotification < Sinatra::Base
   end
 
   get '/devices/?' do
+    use Rack::Auth::Basic, "Restricted Area" do |username, password|
+      username == (ENV['HELIOS_ADMIN_USERNAME'] || "") and password == (ENV['HELIOS_ADMIN_PASSWORD'] || "")
+    end if ENV['HELIOS_ADMIN_USERNAME'] or ENV['HELIOS_ADMIN_PASSWORD']
+    
     param :q, String
 
     devices = ::Rack::PushNotification::Device.dataset
@@ -74,9 +78,9 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
   get '/tokens/:user' do
     param :user, String, empty: false
-    tokens = Rack::PushNotification::Device.where(:alias=>params[:user]).all.collect(&:token)
-    if tokens
-      {tokens: tokens}.to_json
+    devices = Rack::PushNotification::Device.where(:alias=>params[:user]).all
+    if devices
+      {devices: devices}.to_json
     else
       status 404
     end
@@ -108,7 +112,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     tokens = params[:tokens]
 
-    halt 404 if (tokens.nil? || tokens.empty?) 
+    halt 400 if (tokens.nil? || tokens.empty?) 
 
     options = JSON.parse(params[:payload])
     options[:alert] = options["aps"]["alert"]
