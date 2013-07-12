@@ -99,7 +99,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
 
     tokens = params[:tokens]
 
-    halt 404 if tokens.empty? 
+    halt 404 if (tokens.nil? || tokens.empty?) 
 
     options = JSON.parse(params[:payload])
     options[:alert] = options["aps"]["alert"]
