@@ -78,7 +78,7 @@ class Helios::Backend::PushNotification < Sinatra::Base
     end
   end
 
-  get '/users/:alias/tokens' do
+  get '/user/tokens' do
     param :user, String, empty: false
     devices = Rack::PushNotification::Device.where(:alias=>params[:user]).all
     if devices

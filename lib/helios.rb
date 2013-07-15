@@ -1,5 +1,6 @@
 require 'rack'
 
+
 module Helios
   class Application
     def initialize(app = nil, options = {}, &block)
