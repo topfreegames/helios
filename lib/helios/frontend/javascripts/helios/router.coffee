@@ -11,12 +11,13 @@ class Helios.Routers.Root extends Backbone.Router
     super
 
   routes:
-    '':                   'index'
-    'data':               'data'
-    'push-notification':  'push_notification'
-    'in-app-purchase':    'in_app_purchase'
-    'passbook':           'passbook'
-    'newsstand':          'newsstand'
+    '':                              'index'
+    'data':                          'data'
+    'push-notification':             'push_notification'
+    'public-push-notification':      'public_push_notification'
+    'in-app-purchase':               'in_app_purchase'
+    'passbook':                      'passbook'
+    'newsstand':                     'newsstand'
 
   index: ->
     Helios.entities.fetch(type: 'OPTIONS')
@@ -28,6 +29,12 @@ class Helios.Routers.Root extends Backbone.Router
   push_notification: ->
     @devices ?= new Helios.Collections.Devices
     @devices.paginator_core.url = Helios.services['push-notification'] + '/devices'
+    @views.devices ?= new Helios.Views.Devices(collection: @devices)
+    @views.devices.render()  
+
+  public_push_notification: ->
+    @devices ?= new Helios.Collections.Devices
+    @devices.paginator_core.url = Helios.services['public-push-notification'] + '/devices'
     @views.devices ?= new Helios.Views.Devices(collection: @devices)
     @views.devices.render()
 

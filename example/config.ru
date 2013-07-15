@@ -4,6 +4,7 @@ Bundler.require
 app = Helios::Application.new do
     service :data, model: Dir['*.xcdatamodel*'].first, only: [:create, :read]
     service :push_notification, frontend: false
+    service :public_push_notification, frontend: false
     service :in_app_purchase
     service :passbook
     service :newsstand, storage: ({
@@ -27,6 +28,7 @@ end
 #   run Helios::Backend.new {
 #     service :data, root: '/', model: Dir['*.xcdatamodel*'].first, only: [:create, :read]
 #     service :push_notification
+#	  service :public_push_notification
 #     service :in_app_purchase
 #     service :passbook
 #     service :newsstand

@@ -22,31 +22,6 @@ class Helios::Backend::PushNotification < Sinatra::Base
     content_type :json
   end
 
-  put '/device/:token/?' do
-    param :device, String, empty: false
-
-    record = Rack::PushNotification::Device.find(token: params[:token]) || Rack::PushNotification::Device.new
-    record.set(params)
-    p params
-    options = JSON.parse(request.body.read)
-    
-    record.timezone = options["device"]["timezone"]
-    record.alias = options["device"]["alias"]
-    record.language = options["device"]["language"]
-    # record.tags = options["device"]["tags"]
-    record.locale = options["device"]["locale"]
-
-    code = record.new? ? 201 : 200
-
-    if record.save
-      status code
-      {device: record}.to_json
-    else
-      status 400
-      {errors: record.errors}.to_json
-    end
-  end
-
   get '/devices/?' do
     if ENV['HELIOS_ADMIN_USERNAME'] and ENV['HELIOS_ADMIN_PASSWORD']
       username == (ENV['HELIOS_ADMIN_USERNAME']) and password == (ENV['HELIOS_ADMIN_PASSWORD'])
@@ -87,17 +62,6 @@ class Helios::Backend::PushNotification < Sinatra::Base
       status 404
     end
 
-  end
-
-
-  get '/devices/:token/?' do
-    record = ::Rack::PushNotification::Device.find(token: params[:token])
-
-    if record
-      {device: record}.to_json
-    else
-      status 404
-    end
   end
 
   head '/message' do

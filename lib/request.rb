@@ -35,7 +35,7 @@ module Helios
 
     def params
       @params ||= SimpleOAuth::Header.parse(auth_header)
-    end
+    end 
 
     # #scheme is defined as an instance method on Rack::Auth::AbstractRequest
     #
