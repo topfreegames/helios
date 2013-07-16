@@ -1,4 +1,4 @@
-requeire 'oauth/consumer.rb'
+require 'oauth/consumer.rb'
 
 module Helios
   class PushClient
