@@ -35,4 +35,10 @@ end
 #   }
 # end
 
-run app
+protected = oatuh.new app
+
+run Rack::URLMap.new({
+  "/" => app,
+  "/push_notification" => protected
+})
+
