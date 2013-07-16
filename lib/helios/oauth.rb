@@ -4,20 +4,8 @@ require 'helios/request'
 
 module Oauth
   class Application
-    def initialize(app = nil, options = {}, &block)
-      @app = Rack::Builder.new do
-        map '/admin' do
-          use Rack::Auth::Basic, "Restricted Area" do |username, password|
-            username == (ENV['HELIOS_ADMIN_USERNAME'] || "") and password == (ENV['HELIOS_ADMIN_PASSWORD'] || "")
-          end if ENV['HELIOS_ADMIN_USERNAME'] or ENV['HELIOS_ADMIN_PASSWORD']
-
-          run Helios::Frontend.new
-        end
-
-      
-
-        run Helios::Backend.new(&block)
-      end
+    def initialize(app)
+      @app = app
     end
 
     def call(env)
@@ -42,7 +30,3 @@ module Oauth
 
   end
 end
-
-require 'helios/backend'
-require 'helios/frontend'
-require 'helios/version'
