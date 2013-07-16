@@ -36,11 +36,11 @@ module Helios
 
   	attr_accessor :options, :key, :secret
 
-  	def initialize
+  	def initialize(options={})
       @key    = ENV['HELIOS_ADMIN_USERNAME']
       @secret = ENV['HELIOS_ADMIN_PASSWORD']
 
-      ensure that keys are symbols
+      # ensure that keys are symbols
       @options = @@default_options.merge(options.inject({}) { |options, (key, value)|
         options[key.to_sym] = value
         options

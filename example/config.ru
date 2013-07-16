@@ -35,10 +35,13 @@ end
 #   }
 # end
 
-protected = oatuh.new app
+app = Helios::Application.new {
+        service :push_notification, apn_certificate: 'ck.pem', apn_environment: 'development'
+      }
+
+protected_app = Oauth::Application.new app
 
 run Rack::URLMap.new({
   "/" => app,
-  "/push_notification" => protected
+  "/push_notification" => protected_app
 })
-

@@ -1,4 +1,5 @@
 require 'rack/auth/abstract/request'
+require 'simple_oauth'
 
 module Oauth
   class Request < Rack::Auth::AbstractRequest   
@@ -24,7 +25,7 @@ module Oauth
       return false unless client
 
       header = SimpleOAuth::Header.new(request.request_method, request.url, included_request_params, auth_header)
-      header.valid?(:consumer_secret => client.consumer_secret)
+      header.valid?(:consumer_secret => client.secret)
     end
 
     def consumer_key
@@ -40,7 +41,7 @@ module Oauth
     # #scheme is defined as an instance method on Rack::Auth::AbstractRequest
     #
     def oauth?
-      scheme == :oauth
+      scheme.to_sym == :oauth
     end
 
     def auth_header
