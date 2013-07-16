@@ -9,7 +9,7 @@ module Oauth
     end
 
     def call(env)
-      @request = Helios::Request.new(env)
+      @request = Oauth::Request.new(env)
 
       @request.with_valid_request do
         if client_verified?
@@ -24,7 +24,7 @@ module Oauth
     private
 
     def client_verified?
-      @client = PushClient.new
+      @client = Helios::PushClient.new
       @request.verify_signature(@client)
     end
 
