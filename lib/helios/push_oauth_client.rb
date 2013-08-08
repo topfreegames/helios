@@ -1,6 +1,6 @@
 
 module Helios
-  class PushClient
+  class PushOauthClient
 
   	@@default_options = {
       # Signature method used by server. Defaults to HMAC-SHA1
@@ -37,8 +37,8 @@ module Helios
   	attr_accessor :options, :key, :secret
 
   	def initialize(options={})
-      @key    = ENV['HELIOS_ADMIN_USERNAME']
-      @secret = ENV['HELIOS_ADMIN_PASSWORD']
+      @key    = ENV['HELIOS_OAUTH_CONSUMER_KEY']
+      @secret = ENV['HELIOS_OAUTH_CONSUMER_SECRET']
 
       # ensure that keys are symbols
       @options = @@default_options.merge(options.inject({}) { |options, (key, value)|

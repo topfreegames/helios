@@ -74,7 +74,7 @@ module Oauth
     end
 
     def client_verified?
-      @client = Helios::PushClient.new
+      @client = Helios::PushOauthClient.new
       @request.verify_signature(@client)
     end
   end

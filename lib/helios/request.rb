@@ -24,7 +24,11 @@ module Oauth
     def verify_signature(client)
       return false unless client
 
-      header = SimpleOAuth::Header.new(request.request_method, request.url, included_request_params, auth_header)
+      header = SimpleOAuth::Header.new(request.request_method, request.url, included_request_params, request.body, auth_header)
+      puts "this is the secret!!"
+      puts included_request_params.inspect
+      puts auth_header.inspect
+      puts client.secret
       header.valid?(:consumer_secret => client.secret)
     end
 
