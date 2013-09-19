@@ -23,10 +23,8 @@ module Oauth
 
     def verify_signature(client)
       return false unless client
-      
       header = SimpleOAuth::Header.new(request.request_method, request.url, included_request_params, request.body, request.content_type, auth_header)
       header.valid?(:consumer_secret => client.secret)
-
     end
 
     def consumer_key
@@ -53,7 +51,7 @@ module Oauth
     # (see http://tools.ietf.org/html/rfc5849#section-3.4.1)
     #
     def included_request_params
-      request.content_type == "application/x-www-form-urlencoded" ? request.params : nil
+      (request.content_type.include? "application/x-www-form-urlencoded") ? request.params : nil
     end
   end
 end
